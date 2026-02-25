@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MicroClaw - 智能体赋能未来</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-color: #10b981;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --border-color: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🤖";
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .example-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .example-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .example-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .example-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .example-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        .service-scope {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .service-scope h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .scope-items {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .scope-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: white;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .scope-item:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-style: italic;
+            animation: fadeInUp 0.8s ease-out 0.7s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: white;
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.8s ease-out 0.8s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Problems Section */
+        .problems {
+            padding: 100px 0;
+            background: #fee2e2;
+            position: relative;
+        }
+
+        .problems::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ef4444' fill-opacity='0.03'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(239, 68, 68, 0.15);
+            border: 2px solid #fecaca;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ef4444, #f87171);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(239, 68, 68, 0.25);
+        }
+
+        .problem-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: #fee2e2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 3px solid #fecaca;
+        }
+
+        .problem-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #dc2626;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .problem-card p {
+            color: #7f1d1d;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        /* Solutions Section */
+        .solutions {
+            padding: 100px 0;
+            background: #dcfce7;
+            position: relative;
+        }
+
+        .solutions::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2322c55e' fill-opacity='0.03'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .solution-item {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.15);
+            border: 2px solid #bbf7d0;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+        }
+
+        .solution-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(34, 197, 94, 0.25);
+        }
+
+        .solution-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: #dcfce7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            border: 3px solid #bbf7d0;
+        }
+
+        .solution-item h4 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: #16a34a;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .solution-item p {
+            color: #14532d;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .service-scope-solutions {
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(34, 197, 94, 0.15);
+            border: 2px solid #bbf7d0;
+            text-align: center;
+        }
+
+        .service-scope-solutions h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .scope-items-solutions {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .scope-item-solutions {
+            background: #dcfce7;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 2px solid #bbf7d0;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #16a34a;
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+        }
+
+        .scope-item-solutions:hover {
+            transform: translateY(-3px);
+            background: #bbf7d0;
+            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.2);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background: var(--bg-light);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            background: var(--bg-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: background 0.3s;
+        }
+
+        .feature-item:hover .feature-icon {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .feature-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .feature-item p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary, .btn-secondary {
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-primary:hover, .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">MicroClaw</a>
+                <ul class="nav-links">
+                    <li><a href="#problems">痛点</a></li>
+                    <li><a href="#solutions">解决方案</a></li>
+                    <li><a href="#features">优势</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>智能体时代已来</h1>
+                <p>从ChatGPT到OpenClaw，智能体正在重塑个人和家庭的生活方式，以及企业的管理和运营模式</p>
+
+                <div class="examples-grid">
+                    <div class="example-item">
+                        <div class="example-icon">🏠</div>
+                        <h4>智能家居管家</h4>
+                        <p>斯坦福研究人员开发的AI管家，自动管理家庭设备、购物清单和日程安排</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="example-icon">🏥</div>
+                        <h4>医疗诊断助手</h4>
+                        <p>Google DeepMind的AlphaFold，蛋白质结构预测准确率超过92%，加速新药研发</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="example-icon">🚗</div>
+                        <h4>自动驾驶系统</h4>
+                        <p>Tesla FSD系统，累计行驶超过10亿英里，实现完全自动驾驶能力</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="example-icon">💰</div>
+                        <h4>量化交易智能体</h4>
+                        <p>文艺复兴科技大奖章基金，AI驱动年化收益超过60%，持续30年</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="example-icon">📚</div>
+                        <h4>个性化教育</h4>
+                        <p>Khan Academy AI导师，为每个学生定制学习路径，学习效率提升40%</p>
+                    </div>
+                    <div class="example-item">
+                        <div class="example-icon">🎨</div>
+                        <h4>创意设计助手</h4>
+                        <p>Midjourney AI，用户超过1500万，每月生成数亿张高质量图像</p>
+                    </div>
+                </div>
+
+                <p class="hero-subtitle">您准备好让智能体为您的生活和工作带来变革了吗？</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems" id="problems">
+        <div class="container">
+            <h2 class="section-title">智能体应用的痛点</h2>
+            <p class="section-subtitle">您是否也遇到了这些问题？</p>
+
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">💡</div>
+                    <h3>想法落地困难</h3>
+                    <p>有很多好的智能体应用想法，但缺乏技术实现能力，创意难以转化为实际可用的解决方案。</p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-icon">❓</div>
+                    <h3>不知道让智能体做什么</h3>
+                    <p>安装OpenClaw后缺乏明确的应用场景，难以发挥智能体的真正价值，投入的资源得不到应有回报。</p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-icon">⚠️</div>
+                    <h3>运行频繁出错</h3>
+                    <p>OpenClaw运行过程中经常出现各种错误，缺乏专业的技术支持，影响业务连续性和用户体验。</p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-icon">💸</div>
+                    <h3>Token费用失控</h3>
+                    <p>智能体狂烧Token，成本居高不下，缺乏有效的成本控制机制，让AI变成吞金兽。</p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-icon">🔓</div>
+                    <h3>权限混乱安全隐患</h3>
+                    <p>权限管理不当，安全漏洞频发，数据泄露风险高，企业信息安全面临严峻挑战。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions" id="solutions">
+        <div class="container">
+            <h2 class="section-title">MicroClaw解决方案</h2>
+            <p class="section-subtitle">专业服务让您无忧使用智能体</p>
+
+            <div class="service-scope-solutions">
+                <h3>全方位服务覆盖</h3>
+                <div class="scope-items-solutions">
+                    <div class="scope-item-solutions">👤 个人智能体</div>
+                    <div class="scope-item-solutions">👨‍👩‍👧‍👦 家庭智能助手</div>
+                    <div class="scope-item-solutions">🏢 企业级解决方案</div>
+                </div>
+            </div>
+
+            <div class="solutions-grid">
+                <div class="solution-item">
+                    <div class="solution-icon">⚙️</div>
+                    <h4>OpenClaw安装运维</h4>
+                    <p>提供OpenClaw框架的专业安装、配置和维护服务，确保您的智能体基础设施稳定运行，7x24小时技术支持。</p>
+                </div>
+
+                <div class="solution-item">
+                    <div class="solution-icon">🖥️</div>
+                    <h4>智能体专用硬件</h4>
+                    <p>供应各类智能体专用硬件设备，包括高性能计算服务器、AI加速卡、边缘计算设备等，为智能体提供强大算力支持。</p>
+                </div>
+
+                <div class="solution-item">
+                    <div class="solution-icon">☁️</div>
+                    <h4>云资源服务</h4>
+                    <p>提供弹性云资源解决方案，包括GPU云服务器、分布式计算集群、存储服务等，按需扩展，成本优化。</p>
+                </div>
+
+                <div class="solution-item">
+                    <div class="solution-icon">🎯</div>
+                    <h4>场景化咨询</h4>
+                    <p>专业团队帮您梳理业务需求，设计最适合的智能体应用场景，让每一分投入都有价值</p>
+                </div>
+
+                <div class="solution-item">
+                    <div class="solution-icon">🔧</div>
+                    <h4>7×24运维支持</h4>
+                    <p>实时监控系统运行状态，快速响应和解决各类问题，保障业务稳定运行</p>
+                </div>
+
+                <div class="solution-item">
+                    <div class="solution-icon">📊</div>
+                    <h4>成本优化方案</h4>
+                    <p>智能成本控制系统，Token使用优化，预算告警机制，让AI成本可控可预测</p>
+                </div>
+
+                <div class="solution-item">
+                    <div class="solution-icon">🔐</div>
+                    <h4>企业级安全</h4>
+                    <p>完善的权限管理体系，数据加密传输，安全审计日志，全方位保护您的数据安全</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">我们的优势</h2>
+            <p class="section-subtitle">为什么选择MicroClaw</p>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🚀</div>
+                    <h4>快速部署</h4>
+                    <p>标准化流程，最快30分钟完成智能体环境搭建</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>安全可靠</h4>
+                    <p>企业级安全保障，数据隔离，权限管理</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <h4>弹性扩展</h4>
+                    <p>根据业务需求灵活调整资源配置</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">💡</div>
+                    <h4>专业支持</h4>
+                    <p>资深技术团队提供全方位咨询和支持</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">💰</div>
+                    <h4>成本优化</h4>
+                    <p>合理的价格体系，为企业节省IT成本</p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🔄</div>
+                    <h4>持续更新</h4>
+                    <p>紧跟技术发展，定期更新服务内容</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <h2>现在联系我们，获取免费专家咨询</h2>
+            <p>专业团队为您量身定制智能体解决方案，让好的想法快速落地</p>
+            <div class="cta-buttons">
+                <a href="mailto:microclaw2026@gmail.com" class="btn-primary">立即咨询</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#solutions">解决方案</a>
+                    <a href="#features">优势</a>
+                    <a href="#contact">联系我们</a>
+                    <a href="mailto:microclaw2026@gmail.com">技术支持</a>
+                </div>
+                <p>© 2024 MicroClaw. 智能体赋能每个人和企业</p>
+            </div>
+            <div class="footer-bottom">
+                <p>microclaw2026@gmail.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease-out both';
+                }
+            });
+        }, observerOptions);
+
+        // Observe service cards and feature items
+        document.querySelectorAll('.service-card, .feature-item').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
